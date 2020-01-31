@@ -1,4 +1,4 @@
-library("rvest")
+library("rvest"); library(janitor)
 
 # https://stackoverflow.com/questions/37240448/use-rvest-to-extract-html-table
 
@@ -7,4 +7,30 @@ URL <- "http://www.transparencia.mg.gov.br/estado-pessoal/despesa-com-pessoal/de
 pg <- read_html(URL)
 tab <- html_table(pg, fill=TRUE)[[1]]
 
-str(tab)
+# tab <- URL %>% 
+#         read_html() %>% 
+#         html_table(fill = TRUE) %>% 
+#         extract2(1)
+
+#===========================================================================
+# os três modos abaixo são equivalentes
+
+# modo 1
+# names(tab) <- make_clean_names(names(tab))
+
+# modo 2
+tab_names <- names(tab)
+names(tab) <- make_clean_names(tab_names)
+
+# modo 3
+# names(tab) <- names(tab) %>%       # operador %>% veio do pacote magrittr
+#                 make_clean_names()
+
+
+# o que acontece com essa linha
+# tab_names <- names(tab)
+# tab_names <- names(tab) <- make_clean_names(tab_names)
+
+x <- "43.198.352.201,49"
+
+as.numeric("43,19")
