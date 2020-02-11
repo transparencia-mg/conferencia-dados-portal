@@ -1,4 +1,6 @@
-library("rvest"); library(janitor)
+library("rvest"); library("janitor"); library("stringr"); library("dplyr")
+
+source("code/helper.R")
 
 # https://stackoverflow.com/questions/37240448/use-rvest-to-extract-html-table
 
@@ -31,6 +33,9 @@ names(tab) <- make_clean_names(tab_names)
 # tab_names <- names(tab)
 # tab_names <- names(tab) <- make_clean_names(tab_names)
 
-x <- "43.198.352.201,49"
+names(tab)
+str(tab)
 
-as.numeric("43,19")
+tab <- mutate(tab, total = num_converte(total))
+filter(tab, total > 1154727600)
+
